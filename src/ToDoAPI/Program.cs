@@ -18,12 +18,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// GET
 app.MapGet("api/todo", async (AppDbContext context) => {
     var items = await context.ToDoItems.ToListAsync();
 
     return Results.Ok(items);
 });
 
+// POST
 app.MapPost("api/todo", async (AppDbContext context, ToDoItem toDoItem ) => {
     await context.ToDoItems.AddAsync(toDoItem);
     await context.SaveChangesAsync();
